@@ -9,50 +9,107 @@ permalink: /
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ "css/front.css" | prepend: site.baseurl }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    <style>
+        /* Force visibility and fix layout */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #333; /* Dark grey text for readability */
+            background-color: #f9f9f9; /* Fallback background */
+        }
+        .main-container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white box */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 { color: #222; margin-bottom: 5px; }
+        h3 { color: #666; font-weight: 400; margin-top: 0; }
+        #avatar { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            border: 3px solid #0077B5;
+            margin-bottom: 20px;
+        }
+        .social-links a {
+            color: #0077B5;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .social-links a:hover { color: #005a87; }
+        .section { text-align: left; margin-top: 40px; }
+        .post-link { color: #0077B5; text-decoration: none; font-weight: bold; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
+        
+        /* Background image fix */
+        #fullscreen-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.2; /* Makes background subtle so text pops */
+        }
+    </style>
 </head>
 <body>
-    <div class="content" style="text-align: center; padding-top: 50px;">
-        {% if site.avatar %}
-            <img src="{{ site.avatar_img_path }}" id="avatar" style="width: 150px; border-radius: 50%;">
-        {% endif %}
 
-        <h1>{{ site.name }}</h1>
-        <p style="font-size: 1.2em;">{{ site.description }}</p>
+    {% if site.front_img %}
+        <img src="{{ site.front_img_path }}" id="fullscreen-bg">
+    {% endif %}
 
-        <ul style="list-style: none; padding: 0;">
-            {% if site.github_username %}
-            <li style="display: inline; margin: 0 10px;"><a class="fa fa-2x fa-github" href="https://github.com/{{ site.github_username }}"></a></li>
+    <div class="main-container">
+        <div style="text-align: center;">
+            {% if site.avatar %}
+                <img src="{{ site.avatar_img_path }}" id="avatar">
             {% endif %}
-            {% if site.linkedin_username %}
-            <li style="display: inline; margin: 0 10px;"><a class="fa fa-2x fa-linkedin" href="https://linkedin.com/in/{{ site.linkedin_username }}"></a></li>
-            {% endif %}
-            {% if site.stack_of_username %}
-            <li style="display: inline; margin: 0 10px;"><a class="fa fa-2x fa-stack-overflow" href="https://stackoverflow.com/users/{{ site.stack_of_username }}"></a></li>
-            {% endif %}
-            <li style="display: inline; margin: 0 10px;"><a class="fa fa-2x fa-envelope" href="mailto:{{ site.email }}"></a></li>
-        </ul>
 
-        <hr style="width: 60%; margin: 40px auto;">
+            <h1>{{ site.name }}</h1>
+            <h3>{{ site.description }}</h3>
 
-        <div style="max-width: 700px; margin: 0 auto; text-align: left; padding: 0 20px;">
-            <h2>About Me</h2>
-            <p>I am a results-driven **Software Engineer** with over 6 years of experience building scalable, innovative solutions. A proud graduate of **COEP Technological University**, I specialize in Full Stack development with a current focus on **AI Agentic Loops** and **Spring Boot** microservices.</p>
-            
-            <h3>Recent Project</h3>
-            <p>Check out <strong>SnapReadAI</strong>, a Chrome Extension I built using the Gemini API to streamline web research through instant summarization.</p>
+            <div class="social-links">
+                {% if site.github_username %}
+                <a class="fa fa-2x fa-github" href="https://github.com/{{ site.github_username }}"></a>
+                {% endif %}
+                {% if site.linkedin_username %}
+                <a class="fa fa-2x fa-linkedin" href="https://linkedin.com/in/{{ site.linkedin_username }}"></a>
+                {% endif %}
+                {% if site.stack_of_username %}
+                <a class="fa fa-2x fa-stack-overflow" href="https://stackoverflow.com/users/{{ site.stack_of_username }}"></a>
+                {% endif %}
+                <a class="fa fa-2x fa-envelope" href="mailto:{{ site.email }}"></a>
+            </div>
         </div>
 
-        <hr style="width: 60%; margin: 40px auto;">
+        <div class="section">
+            <h2>About Me</h2>
+            <p>I am a **Software Engineer** with over 6 years of experience. A **COEP Technological University** alumnus, I focus on building high-performance applications with **Java, Spring Boot, and React**. Currently, I'm deep into **AI Agentic Loops** and Chrome Extension development.</p>
+        </div>
 
-        <div style="max-width: 700px; margin: 0 auto; text-align: left; padding: 0 20px;">
+        <hr>
+
+        <div class="section">
             <h2>Latest from the Blog</h2>
             {% for post in site.posts limit:3 %}
-                <div style="margin-bottom: 20px;">
-                    <a href="{{ post.url | prepend: site.baseurl }}" style="font-size: 1.2em; font-weight: bold; color: #0077B5; text-decoration: none;">{{ post.title }}</a>
-                    <p style="color: #888; font-size: 0.9em;">{{ post.date | date: "%B %d, %Y" }}</p>
+                <div style="margin-bottom: 15px;">
+                    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    <br><small style="color: #999;">{{ post.date | date: "%B %d, %Y" }}</small>
                 </div>
             {% endfor %}
+            {% if site.posts.size == 0 %}
+                <p style="color: #999; font-style: italic;">No posts yet. Stay tuned!</p>
+            {% endif %}
         </div>
     </div>
+
 </body>
 </html>
