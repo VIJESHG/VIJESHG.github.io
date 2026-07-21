@@ -1,0 +1,36 @@
+<!-- Generic Desktop Icon Template -->
+<div class="desktop-icon" style="top: 430px; right: 30px;" onclick="openDesktopShortcut('YOUR_URL_HERE', '_blank')">
+  <div class="mac-app-icon" style="background: #007aff; color: white;">
+    <!-- Choice A: Custom Image Logo -->
+    <!-- <img src="YOUR_LOGO_URL.png" alt="App Logo"> -->
+
+    <!-- Choice B: Emoji Placeholder -->
+    <span style="font-size: 24px;">🚀</span>
+  </div>
+  <span>App Name</span>
+</div>
+
+📋 How to add a new project in 1 minute:
+Whenever you launch or finish a new project, just copy this generic template block and paste it inside <div class="projects-grid">:
+
+<div class="project-card">
+  <div class="project-card-header">
+    <div class="project-icon-box default-bg">🚀</div>
+    <div class="project-title-area">
+      <h4>My New Project</h4>
+      <span class="project-category">Fullstack / AI</span>
+    </div>
+    <span class="project-badge badge-green">Live</span>
+  </div>
+  <p class="project-description">
+    Summary of what this tool or app does.
+  </p>
+  <div class="project-tags">
+    <span class="ptag">React</span>
+    <span class="ptag">Python</span>
+  </div>
+  <div class="project-actions">
+    <a href="https://your-demo-url.com" target="_blank" class="proj-btn primary">Demo ↗</a>
+    <a href="https://github.com/your-repo" target="_blank" class="proj-btn secondary">GitHub ↗</a>
+  </div>
+</div>
