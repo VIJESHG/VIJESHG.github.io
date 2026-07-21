@@ -1059,3 +1059,100 @@
   background: #18181b !important;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+/* --- macOS Control Center Dropdown --- */
+.control-center-popover {
+  position: fixed;
+  top: 34px;
+  right: 12px;
+  width: 280px;
+  background: rgba(28, 28, 30, 0.78);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  z-index: 10000;
+  color: #f4f4f5;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.control-center-popover.hidden {
+  display: none;
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.cc-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cc-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.wallpaper-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wallpaper-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #e4e4e7;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.wallpaper-card:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.wallpaper-card.active {
+  background: rgba(0, 122, 255, 0.25);
+  border-color: #007aff;
+  color: #ffffff;
+}
+
+.wp-preview {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+/* Wallpaper Thumbnail Gradients */
+.monterey-dark-thumb {
+  background: linear-gradient(135deg, #1e1b4b, #311042, #581c87);
+}
+
+.sonoma-light-thumb {
+  background: linear-gradient(135deg, #38bdf8, #f43f5e, #fbbf24);
+}
+
+.cyber-dark-thumb {
+  background: linear-gradient(135deg, #0f172a, #0284c7, #10b981);
+}

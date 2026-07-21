@@ -410,3 +410,60 @@ function executeTerminalCommand(cmd) {
 function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
+
+// --- macOS Control Center & Wallpaper Switcher ---
+
+const wallpaperURLs = {
+   'default': 'assets/wallpaper.jpg',
+  'monterey-dark': 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop',
+  'sonoma-light': 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2000&auto=format&fit=crop',
+ 
+};
+
+function toggleControlCenter() {
+  const panel = document.getElementById('control-center-panel');
+  if (panel) {
+    panel.classList.toggle('hidden');
+  }
+}
+
+// Close panel when clicking outside
+document.addEventListener('click', function (e) {
+  const trigger = document.getElementById('control-center-trigger');
+  const panel = document.getElementById('control-center-panel');
+  
+  if (panel && trigger && !panel.classList.contains('hidden')) {
+    if (!panel.contains(e.target) && !trigger.contains(e.target)) {
+      panel.classList.add('hidden');
+    }
+  }
+});
+
+function setWallpaper(theme) {
+  const selectedURL = wallpaperURLs[theme];
+  if (!selectedURL) return;
+
+  // Apply wallpaper image to body/desktop background
+  document.body.style.backgroundImage = `url('${selectedURL}')`;
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundAttachment = 'fixed';
+
+  // Save choice to localStorage
+  localStorage.setItem('macOS-wallpaper', theme);
+
+  // Update active status on UI buttons
+  document.querySelectorAll('.wallpaper-card').forEach(card => {
+    if (card.getAttribute('data-theme') === theme) {
+      card.classList.add('active');
+    } else {
+      card.classList.remove('active');
+    }
+  });
+}
+
+// Initialize saved wallpaper on initial page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedWallpaper = localStorage.getItem('macOS-wallpaper') || 'default';
+  setWallpaper(savedWallpaper);
+});
