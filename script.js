@@ -555,3 +555,83 @@ async function loadDocument(doc, element) {
 document.addEventListener('DOMContentLoaded', () => {
   initGoodReadsApp();
 });
+
+// --- macOS Lock Screen & Idle Screen Saver Logic ---
+
+let isLocked = false;
+let idleTimer = null;
+const IDLE_TIMEOUT_MS = 2 * 60 * 1000; // 2 minutes of inactivity
+
+function updateLockClock() {
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const dateStr = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+
+  const lockTimeEl = document.getElementById('lock-time');
+  const lockDateEl = document.getElementById('lock-date');
+
+  if (lockTimeEl) lockTimeEl.innerText = timeStr;
+  if (lockDateEl) lockDateEl.innerText = dateStr;
+}
+
+function lockScreen() {
+  const lockWin = document.getElementById('lock-screen');
+  if (!lockWin) return;
+
+  isLocked = true;
+  updateLockClock();
+  lockWin.classList.remove('hidden');
+
+  const passInput = document.getElementById('lock-pass-input');
+  if (passInput) {
+    passInput.value = '';
+    setTimeout(() => passInput.focus(), 100);
+  }
+}
+
+function unlockScreen() {
+  const lockWin = document.getElementById('lock-screen');
+  if (!lockWin) return;
+
+  isLocked = false;
+  lockWin.classList.add('hidden');
+  resetIdleTimer();
+}
+
+function resetIdleTimer() {
+  if (isLocked) return;
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    lockScreen();
+  }, IDLE_TIMEOUT_MS);
+}
+
+// Global Event Listeners for Lock Screen
+document.addEventListener('DOMContentLoaded', () => {
+  // Update lock clock every second
+  setInterval(updateLockClock, 1000);
+
+  // Initialize Idle Timer on User Activity
+  ['mousemove', 'keydown', 'mousedown', 'touchstart'].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+  resetIdleTimer();
+
+  // Press Enter key on Lock Screen password input to unlock
+  const passInput = document.getElementById('lock-pass-input');
+  if (passInput) {
+    passInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        unlockScreen();
+      }
+    });
+  }
+
+  // Keyboard Shortcut: Cmd + L or Ctrl + L to Lock Screen instantly
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'l') {
+      e.preventDefault();
+      lockScreen();
+    }
+  });
+});

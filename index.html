@@ -71,8 +71,13 @@
             
             <div class="dropdown-divider"></div>
             
+            <div class="dropdown-item" onclick="lockScreen()">
+              <span>Lock Screen</span>
+              <span class="shortcut">⌘L</span>
+            </div>
+            <div class="dropdown-divider"></div>
             <div class="dropdown-item disabled">
-              <span>macOS Portfolio v2.0</span>
+              <span>Release v1.0.0</span>
             </div>
           </div>
         </div>
@@ -646,7 +651,7 @@
         </svg>
       </div>
     </div>
-    
+
       <div class="dock-divider"></div>
       <div class="dock-item" title="Trash">
         <div class="dock-icon">🗑️</div>
@@ -671,6 +676,44 @@
       </video>
     </div>
   </div>
+
+  <!-- macOS Lock Screen Overlay -->
+<div id="lock-screen" class="lock-screen hidden">
+  <div class="lock-screen-bg"></div>
+  
+  <div class="lock-content">
+    <!-- Top Clock & Date -->
+    <div class="lock-clock-area">
+      <div id="lock-date">Wednesday, July 22</div>
+      <div id="lock-time">12:00 PM</div>
+    </div>
+
+    <!-- Center User Login -->
+    <div class="lock-user-area">
+      <div class="lock-avatar">VG</div>
+      <div class="lock-user-name">Vijesh Ghandare</div>
+
+      <div class="lock-input-group">
+        <input type="password" id="lock-pass-input" placeholder="Enter password..." autocomplete="off" />
+        <button id="lock-unlock-btn" onclick="unlockScreen()" title="Unlock">➔</button>
+      </div>
+      <div id="lock-hint" class="lock-hint">Press Enter or click arrow to unlock</div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="lock-footer-actions">
+      <div class="lock-action-btn" onclick="unlockScreen()" title="Sleep">
+        <div class="lock-action-icon">🌙</div>
+        <span>Sleep</span>
+      </div>
+      <div class="lock-action-btn" onclick="unlockScreen()" title="Restart">
+        <div class="lock-action-icon">🔄</div>
+        <span>Restart</span>
+      </div>
+    </div>
+  </div>
+</div>
   <script src="script.js"></script>
+  
 </body>
 </html>
