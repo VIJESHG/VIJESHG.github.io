@@ -37,7 +37,9 @@
   <link rel="stylesheet" href="style.css">
   <!-- Cloudflare Web Analytics -->
    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5681f18792244bff8d4061ee632315f1"}'></script><!-- End Cloudflare Web Analytics -->
-</head>
+   <!-- Marked.js for rendering Markdown files -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
 <body>
 
   <!-- Top macOS Translucent Menu Bar -->
@@ -558,7 +560,39 @@
     </div>
   </div>
 </div>
-  </main>
+<!-- Modern macOS Window: Good Reads -->
+<div id="good-reads-window" class="mac-window hidden">
+  <div class="window-header">
+    <div class="traffic-lights">
+      <span class="close" onclick="closeWindow('good-reads-window')"></span>
+      <span class="minimize" onclick="minimizeWindow('good-reads-window')"></span>
+      <span class="maximize" onclick="toggleMaximize('good-reads-window')"></span>
+    </div>
+    <span class="window-title">Good Reads — Notes &amp; Specs</span>
+  </div>
+
+  <div class="reader-app-body">
+    <!-- Sidebar / File List -->
+    <aside class="reader-sidebar">
+      <div class="sidebar-category">DOCUMENTATION</div>
+      <ul id="reader-file-list" class="file-list">
+        <!-- Populated by JavaScript -->
+      </ul>
+    </aside>
+
+    <!-- Main Content Reader -->
+    <main class="reader-main">
+      <div id="reader-header" class="reader-doc-header">
+        <h2 id="doc-title">Select a Document</h2>
+        <span id="doc-badge" class="doc-badge">.md</span>
+      </div>
+      <div id="reader-body" class="markdown-body">
+        <p class="placeholder-text">Choose a note or README from the sidebar to start reading.</p>
+      </div>
+    </main>
+  </div>
+</div>
+</main>
 
   <!-- Floating Glass macOS Dock -->
   <footer class="dock-container">
@@ -602,6 +636,17 @@
         <span style="font-size: 20px; font-family: monospace; font-weight: 800; color: #4ade80;">>_</span>
       </div>
     </div>
+
+    <!-- Good Reads Dock Item -->
+    <div class="dock-item" title="Good Reads" onclick="openWindow('good-reads-window')">
+      <div class="dock-icon reads-dock-icon" style="background: linear-gradient(135deg, #f97316, #ea580c); display: flex; align-items: center; justify-content: center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
+    </div>
+    
       <div class="dock-divider"></div>
       <div class="dock-item" title="Trash">
         <div class="dock-icon">🗑️</div>

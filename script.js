@@ -467,3 +467,91 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedWallpaper = localStorage.getItem('macOS-wallpaper') || 'default';
   setWallpaper(savedWallpaper);
 });
+
+// --- Good Reads App Data & Logic ---
+
+const docsList = [
+  // {
+  //   id: 'agentic-ai-spec',
+  //   title: 'Agentic AI Systems',
+  //   type: 'md',
+  //   content: `# Agentic AI Architecture\n\n> System Spec v2026\n\n### Overview\nThis document outlines multi-agent orchestration pipelines using tool-calling patterns and distributed state management.\n\n\`\`\`javascript\nconst agent = new Agent({ role: 'Architect', tools: [searchTool, codeExecutor] });\nawait agent.execute(task);\n\`\`\`\n\n* High-throughput routing\n* Sub-second tool latency\n* Built for fault tolerance`
+  // },
+  {
+    id: 'microservice-readme',
+    title: 'Microservices Architecture Patterns',
+    type: 'README',
+    url: 'https://raw.githubusercontent.com/VIJESHG/MicroServiceArchitectureLearning/main/README.md'
+  },
+  {
+    id: 'practical-java-readme',
+    title: 'Practical Java',
+    type: 'README',
+    url: 'https://raw.githubusercontent.com/VIJESHG/PracticalJava/main/README.md'
+  }
+  // {
+  //   id: 'engineering-notes',
+  //   title: 'Engineering Principles',
+  //   type: 'txt',
+  //   content: `ENGINEERING PHILOSOPHY (2026)\n\n1. Simplicity over unnecessary abstraction.\n2. Optimize for readability and maintainability.\n3. Measure before optimizing performance.\n4. Design resilient systems with clear failure modes.`
+  // }
+];
+
+function initGoodReadsApp() {
+  const fileListContainer = document.getElementById('reader-file-list');
+  if (!fileListContainer) return;
+
+  fileListContainer.innerHTML = '';
+
+  docsList.forEach((doc, index) => {
+    const li = document.createElement('li');
+    li.className = `file-item ${index === 0 ? 'active' : ''}`;
+    li.innerHTML = `
+      <span>${doc.title}</span>
+      <span class="file-tag">${doc.type}</span>
+    `;
+    li.onclick = () => loadDocument(doc, li);
+    fileListContainer.appendChild(li);
+  });
+
+  // Load first document on start
+  if (docsList.length > 0) {
+    loadDocument(docsList[0], fileListContainer.children[0]);
+  }
+}
+
+async function loadDocument(doc, element) {
+  document.querySelectorAll('.file-item').forEach(item => item.classList.remove('active'));
+  if (element) element.classList.add('active');
+
+  document.getElementById('doc-title').innerText = doc.title;
+  document.getElementById('doc-badge').innerText = `.${doc.type.toLowerCase()}`;
+  
+  const readerBody = document.getElementById('reader-body');
+  readerBody.innerHTML = '<p class="placeholder-text">Loading content...</p>';
+
+  let rawText = '';
+
+  if (doc.url) {
+    try {
+      const response = await fetch(doc.url);
+      if (!response.ok) throw new Error('Fetch failed');
+      rawText = await response.text();
+    } catch (err) {
+      rawText = `> **Error loading document:** Could not fetch content from GitHub URL.`;
+    }
+  } else {
+    rawText = doc.content || 'No content available.';
+  }
+
+  if (doc.type.toLowerCase() === 'txt') {
+    readerBody.innerHTML = `<pre style="white-space: pre-wrap; font-family: inherit;">${rawText}</pre>`;
+  } else {
+    readerBody.innerHTML = typeof marked !== 'undefined' ? marked.parse(rawText) : rawText;
+  }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  initGoodReadsApp();
+});

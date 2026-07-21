@@ -34,3 +34,11 @@ Whenever you launch or finish a new project, just copy this generic template blo
     <a href="https://github.com/your-repo" target="_blank" class="proj-btn secondary">GitHub ↗</a>
   </div>
 </div>
+
+
+How to add new notes or GitHub README links:
+Simply add a new object to the docsList array in script.js:
+
+For a raw GitHub README: Pass the raw.githubusercontent.com URL in the url property.
+
+For local files or Markdown strings: Pass your markdown formatted string inside the content property or fetch local relative paths (e.g. docs/my-note.md).
