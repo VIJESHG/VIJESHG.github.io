@@ -700,3 +700,159 @@ window.addEventListener('keydown', (e) => {
     }
   }
 });
+
+
+// --- macOS Spotlight Search & Fuzzy Engine ---
+
+// 1. Portfolio Search Index
+const searchIndex = [
+  // Features / Windows
+  { title: "About Me", category: "Window", icon: "👤", action: () => openWindow('about-window'), tags: ["experience", "bio", "skills", "vijesh"] },
+  { title: "Projects", category: "Window", icon: "⚡", action: () => openWindow('projects-window'), tags: ["portfolio", "apps", "code"] },
+  { title: "Contact", category: "Window", icon: "💬", action: () => openWindow('contact-window'), tags: ["email", "social", "connect"] },
+  { title: "Terminal", category: "Window", icon: "💻", action: () => openWindow('terminal-window'), tags: ["zsh", "cli", "commands"] },
+  { title: "Good Reads", category: "Window", icon: "📖", action: () => openWindow('good-reads-window'), tags: ["notes", "docs", "markdown"] },
+  { title: "System Help", category: "Window", icon: "💡", action: () => openWindow('help-window'), tags: ["shortcuts", "guide"] },
+  
+  // Specific Projects
+  { title: "Fullstack Nexus", category: "Project", icon: "⚡", action: () => window.open('https://vijeshg.github.io/fullstack-nexus/', '_blank'), tags: ["architecture", "web", "system design"] },
+  { title: "SnapReadAI", category: "Project", icon: "🤖", action: () => openWindow('projects-window'), tags: ["chrome extension", "gemini", "ai", "llm"] },
+  { title: "PracticalJava", category: "Project", icon: "☕", action: () => window.open('https://github.com/VIJESHG/PracticalJava', '_blank'), tags: ["java", "streams", "concurrency"] },
+  { title: "MyCalci", category: "Project", icon: "🧮", action: () => window.open('https://github.com/VIJESHG/MyCalci', '_blank'), tags: ["c++", "cli", "linked list", "math"] },
+  { title: "K8s Troubleshooting Agent", category: "Project", icon: "⚙️", action: () => window.open('https://github.com/vijeshg', '_blank'), tags: ["agentic ai", "langgraph", "mcp", "kubernetes"] },
+
+  // Social & Profiles
+  { title: "GitHub Profile", category: "Link", icon: "🐙", action: () => window.open('https://github.com/vijeshg', '_blank'), tags: ["repos", "git"] },
+  { title: "LeetCode Profile", category: "Link", icon: "🧩", action: () => window.open('https://leetcode.com/u/vijeshg', '_blank'), tags: ["dsa", "coding"] },
+  { title: "LinkedIn Profile", category: "Link", icon: "💼", action: () => window.open('https://www.linkedin.com/in/vijeshg/', '_blank'), tags: ["career", "jobs"] },
+
+  // Actions
+  { title: "Lock Screen", category: "Action", icon: "🔒", action: () => lockScreen(), tags: ["security", "logout"] },
+  { title: "Surprise Me (Roll Dice)", category: "Action", icon: "🎲", action: () => openRandomWindow(), tags: ["random", "game"] }
+];
+
+// Initialize Fuse.js Fuzzy Matcher
+let fuse;
+if (typeof Fuse !== 'undefined') {
+  fuse = new Fuse(searchIndex, {
+    keys: ['title', 'category', 'tags'],
+    threshold: 0.4, // Sensitivity for fuzzy match
+  });
+}
+
+let selectedIndex = 0;
+
+// Toggle Spotlight
+function toggleSpotlight() {
+  const overlay = document.getElementById('spotlight-overlay');
+  const input = document.getElementById('spotlight-input');
+  
+  if (overlay.classList.contains('hidden')) {
+    overlay.classList.remove('hidden');
+    void overlay.offsetWidth;
+    overlay.classList.add('visible');
+    input.value = '';
+    input.focus();
+    renderSpotlightResults(searchIndex.slice(0, 5)); // Initial top suggestions
+  } else {
+    closeSpotlight();
+  }
+}
+
+function closeSpotlight() {
+  const overlay = document.getElementById('spotlight-overlay');
+  if (overlay) {
+    overlay.classList.remove('visible');
+    setTimeout(() => overlay.classList.add('hidden'), 200);
+  }
+}
+
+function closeSpotlightOnBackdrop(e) {
+  if (e.target.id === 'spotlight-overlay') closeSpotlight();
+}
+
+// Render Search Results
+function renderSpotlightResults(results) {
+  const container = document.getElementById('spotlight-results');
+  container.innerHTML = '';
+  selectedIndex = 0;
+
+  if (results.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: rgba(255,255,255,0.4); font-size: 13px;">No results found</div>`;
+    return;
+  }
+
+  results.forEach((item, index) => {
+    const data = item.item ? item.item : item; // Handle Fuse result object vs raw object
+    const row = document.createElement('div');
+    row.className = `spotlight-item ${index === 0 ? 'selected' : ''}`;
+    row.onclick = () => {
+      data.action();
+      closeSpotlight();
+    };
+
+    row.innerHTML = `
+      <div class="spotlight-item-left">
+        <span class="spotlight-item-icon">${data.icon}</span>
+        <div>
+          <div class="spotlight-item-title">${data.title}</div>
+          <div class="spotlight-item-sub">${data.tags.join(' • ')}</div>
+        </div>
+      </div>
+      <span class="spotlight-badge">${data.category}</span>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// Input Listener
+document.getElementById('spotlight-input')?.addEventListener('input', (e) => {
+  const query = e.target.value.trim();
+  if (query === '') {
+    renderSpotlightResults(searchIndex.slice(0, 5));
+  } else if (fuse) {
+    const results = fuse.search(query);
+    renderSpotlightResults(results);
+  }
+});
+
+// Keydown Listener (⌘ + Space Shortcut & Arrow Key Navigation)
+window.addEventListener('keydown', (e) => {
+  // Toggle Spotlight with Command + Space or Ctrl + Space
+  if ((e.metaKey || e.ctrlKey) && e.code === 'k') {
+    e.preventDefault();
+    toggleSpotlight();
+    return;
+  }
+
+  const overlay = document.getElementById('spotlight-overlay');
+  if (overlay && !overlay.classList.contains('hidden')) {
+    const items = document.querySelectorAll('.spotlight-item');
+
+    if (e.key === 'Escape') {
+      closeSpotlight();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (selectedIndex < items.length - 1) {
+        items[selectedIndex].classList.remove('selected');
+        selectedIndex++;
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (selectedIndex > 0) {
+        items[selectedIndex].classList.remove('selected');
+        selectedIndex--;
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (items[selectedIndex]) {
+        items[selectedIndex].click();
+      }
+    }
+  }
+});
+

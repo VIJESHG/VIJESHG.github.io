@@ -1812,3 +1812,181 @@
   border-radius: 4px;
   font-family: monospace;
 }
+
+
+/* --- macOS Spotlight Search Overlay --- */
+
+.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  padding-top: 18vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.spotlight-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.spotlight-card {
+  width: 90%;
+  max-width: 620px;
+  background: rgba(30, 30, 32, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  max-height: 480px;
+}
+
+.spotlight-input-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spotlight-search-icon {
+  font-size: 18px;
+  margin-right: 12px;
+  opacity: 0.7;
+}
+
+#spotlight-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+}
+
+#spotlight-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.spotlight-shortcut-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+/* Results Area */
+.spotlight-results {
+  overflow-y: auto;
+  max-height: 360px;
+  padding: 8px;
+}
+
+.spotlight-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background 0.15s ease;
+}
+
+.spotlight-item:hover, .spotlight-item.selected {
+  background: rgba(0, 122, 255, 0.8);
+}
+
+.spotlight-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.spotlight-item-icon {
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlight-item-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.spotlight-item-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.spotlight-item.selected .spotlight-item-sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.spotlight-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Spotlight Footer */
+.spotlight-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.spotlight-footer kbd {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+
+/* --- Menu Bar Action Icons --- */
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.menu-item svg {
+  display: block;
+  color: currentColor;
+}
