@@ -852,3 +852,126 @@
   .snapread-bg {
     background: transparent;
   }
+
+  /* ==========================================
+   📱 Mobile & Tablet Responsive Adjustments
+   ========================================== */
+
+@media (max-width: 768px) {
+
+  /* 1. Simplify Top Menu Bar */
+  .menu-left span:not(.brand-name):not(.app-title) {
+    display: none; /* Hide File, Edit, View, Go, Window, Help on small screens */
+  }
+
+  .menu-bar {
+    padding: 0 10px;
+  }
+
+  /* 2. Reposition Desktop Icons into a Mobile-Friendly Top Grid */
+  .desktop-icons {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 10px;
+    top: 0 !important;
+    right: 0 !important;
+  }
+
+  .desktop-icon {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: 72px;
+  }
+
+  /* 3. Hide or Adjust Widgets on Small Screens */
+  .widgets-container {
+    display: none; /* Hides desktop widgets on mobile to prevent clutter */
+  }
+
+  /* 4. Convert macOS Windows to Touch Modals */
+  .mac-window {
+    position: fixed !important;
+    top: 40px !important;
+    left: 3vw !important;
+    width: 94vw !important;
+    height: 78vh !important;
+    max-width: 100vw !important;
+    max-height: 85vh !important;
+    resize: none !important; /* Disable manual drag-resize on touch screens */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1000 !important;
+  }
+
+  .window-body {
+    padding: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 5. Projects Window Grid: Single-Column Stack */
+  .projects-grid {
+    grid-template-columns: 1fr; /* Single column on phones */
+    gap: 12px;
+  }
+
+  .project-actions {
+    flex-wrap: wrap; /* Wraps action buttons nicely on narrow screens */
+  }
+
+  .proj-btn {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* 6. QuickTime Video Player Window */
+  #video-window {
+    width: 94vw !important;
+    left: 3vw !important;
+    top: 60px !important;
+  }
+
+  /* 7. Fit Glassmorphic Dock for Mobile Screens */
+  .dock-container {
+    bottom: 8px;
+    width: auto;
+    max-width: 96vw;
+  }
+
+  .dock {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  .dock-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+
+  .dock-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Disable dock hover scaling on touch devices to prevent sticky zoom states */
+  .dock-item:hover {
+    transform: none;
+  }
+}
+
+/* Extra small devices (portrait phones, < 480px) */
+@media (max-width: 480px) {
+  .brand-name {
+    display: none; /* Show only VG monogram on tiny screens */
+  }
+
+  .mac-window {
+    height: 82vh !important;
+  }
+}
