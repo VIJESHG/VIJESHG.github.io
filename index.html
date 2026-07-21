@@ -82,11 +82,11 @@
           </div>
         </div>
       
-        <span class="app-title"><b>Finder</b></span>
-        <span>File</span>
-        <span>Edit</span>
-        <span>View</span>
-        <span>Go</span>
+        <span class="app-title" onclick="openWindow('about-window')"><b>About</b></span>
+        <span onclick="openWindow('projects-window')">Projects</span>
+        <span onclick="openWindow('contact-window')">Connect</span>
+        <span onclick="openWindow('good-reads-window')">Read</span>
+        <span onclick="openWindow('terminal-window')">Terminal</span>
         <span>Window</span>
         <span>Help</span>
       </div>
@@ -481,7 +481,10 @@
     <div class="window-body">
       <!-- Contact Header Card -->
       <div class="contact-card-header">
-        <div class="contact-avatar">VG</div>
+        <!-- <div class="contact-avatar">VG</div> -->
+         <div class="contact-avatar"> 
+          <img src="assets/vijesh.png" alt="Vijesh Ghandare" class="contact-avatar-img" />
+         </div>
         <div class="contact-meta">
           <h3>Vijesh Ghandare</h3>
           <p>Software Engineer</p>
@@ -521,13 +524,25 @@
                 </svg>
               </div>
           </div>
+          
+          
           <div class="link-details">
             <span class="link-title">GitHub</span>
             <span class="link-sub">github.com/vijeshg</span>
           </div>
           <span class="external-arrow">↗</span>
         </a>
-  
+                <!-- LeetCode Link -->
+        <a href="https://leetcode.com/u/vijeshg" target="_blank" class="contact-link-row">
+          <div class="link-icon-bg leetcode-bg">
+            <span class="fallback-icon">🧩</span>
+          </div>
+          <div class="link-details">
+            <span class="link-title">LeetCode</span>
+            <span class="link-sub">leetcode.com/u/vijeshg</span>
+          </div>
+          <span class="external-arrow">↗</span>
+        </a>
         <!-- LinkedIn Link -->
         <a href="https://www.linkedin.com/in/vijeshg/" target="_blank" class="contact-link-row">
           <div class="link-icon-bg linkedin-bg">
@@ -690,7 +705,8 @@
 
     <!-- Center User Login -->
     <div class="lock-user-area">
-      <div class="lock-avatar">VG</div>
+      <!-- <div class="lock-avatar">VG</div> -->
+       <div class="lock-avatar"><img src="assets/vijesh.png" alt="Vijesh Ghandare" class="lock-avatar-img" /></div>
       <div class="lock-user-name">Vijesh Ghandare</div>
 
       <div class="lock-input-group">
