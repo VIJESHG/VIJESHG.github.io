@@ -87,8 +87,8 @@
         <span onclick="openWindow('contact-window')">Connect</span>
         <span onclick="openWindow('good-reads-window')">Read</span>
         <span onclick="openWindow('terminal-window')">Terminal</span>
-        <span>Window</span>
-        <span>Help</span>
+        <!-- Replace: <span>Help</span> with: -->
+        <span onclick="openWindow('help-window')">Help</span>
       </div>
     <div class="menu-right">
       <span class="status-icon">⚡️</span>
@@ -617,6 +617,67 @@
         <p class="placeholder-text">Choose a note or README from the sidebar to start reading.</p>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- Modern macOS Window: System Help & Shortcuts -->
+<div id="help-window" class="mac-window hidden">
+  <div class="window-header">
+    <div class="traffic-lights">
+      <span class="close" onclick="closeWindow('help-window')"></span>
+      <span class="minimize" onclick="minimizeWindow('help-window')"></span>
+      <span class="maximize" onclick="toggleMaximize('help-window')"></span>
+    </div>
+    <span class="window-title">VijeshOS — User Guide & System Shortcuts</span>
+  </div>
+
+  <div class="window-body help-body">
+    <!-- Hero Header -->
+    <div class="help-hero">
+      <div class="help-hero-icon">💡</div>
+      <div>
+        <h3>VijeshOS Desktop Navigation</h3>
+        <p>Shortcuts and hidden interactive features across the portfolio.</p>
+      </div>
+    </div>
+
+    <hr class="mac-divider" />
+
+    <!-- Keyboard Shortcuts -->
+    <h4 class="help-section-title">⌨️ Keyboard Shortcuts & Menus</h4>
+    <div class="shortcuts-grid">
+      <div class="shortcut-card">
+        <span class="shortcut-desc">Lock Screen</span>
+        <span class="shortcut-keys"><kbd>⌘</kbd> + <kbd>L</kbd></span>
+      </div>
+      <div class="shortcut-card">
+        <span class="shortcut-desc">Close Active Window</span>
+        <span class="shortcut-keys"><kbd>Esc</kbd></span>
+      </div>
+      <div class="shortcut-card">
+        <span class="shortcut-desc">About Me (Brand Menu)</span>
+        <span class="shortcut-keys"><kbd>⌘</kbd> + <kbd>A</kbd></span>
+      </div>
+      <div class="shortcut-card">
+        <span class="shortcut-desc">Contact Card</span>
+        <span class="shortcut-keys"><kbd>⌘</kbd> + <kbd>C</kbd></span>
+      </div>
+    </div>
+
+    <!-- Interactive Features Breakdown -->
+    <h4 class="help-section-title" style="margin-top: 16px;">✨ Interactive Features & Modules</h4>
+    <ul class="help-tips-list">
+      <li><b>🎛️ Control Center:</b> Click the slider icon in the top-right menu bar to switch between <i>Default Cyber</i>, <i>Monterey Dark</i>, and <i>Sonoma Light</i> wallpapers.</li>
+      <li><b>🎲 Surprise Me Desktop Icon:</b> Click the 🎲 icon on your desktop to roll a full-screen 3D dice and randomly launch a feature window.</li>
+      <li><b>▶️ Live Video Demos:</b> Open <b>Projects</b> to watch live recorded video walkthroughs for <code>SnapReadAI</code> and <code>MyCalci</code>.</li>
+      <li><b>📖 Good Reads App:</b> Open <b>Read</b> to browse technical documentations and system specifications rendered live from Markdown files.</li>
+      <li><b>💻 zsh Terminal:</b> Click <b>Terminal</b> or launch it from the menu bar to run interactive CLI commands (type <code>help</code> to get started).</li>
+      <li><b>💼 Quick Connect:</b> Open <b>Connect</b> to copy Vijesh's email with one click or view profiles on <b>GitHub</b>, <b>LinkedIn</b>, and <b>LeetCode</b>.</li>
+    </ul>
+
+    <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+      <button onclick="closeWindow('help-window')" class="proj-btn primary">Got It!</button>
+    </div>
   </div>
 </div>
 </main>

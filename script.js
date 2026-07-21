@@ -688,3 +688,15 @@ function rollAndOpenRandomWindow(iconElement) {
     isRolling = false;
   }, 1100);
 }
+
+// Press ESC to close any currently visible window
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const visibleWindows = document.querySelectorAll('.mac-window:not(.hidden)');
+    if (visibleWindows.length > 0) {
+      // Close the topmost active window
+      const lastWin = visibleWindows[visibleWindows.length - 1];
+      closeWindow(lastWin.id);
+    }
+  }
+});
