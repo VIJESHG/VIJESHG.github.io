@@ -192,6 +192,13 @@
       <span>About Me</span>
     </div>
     
+    <!-- Desktop Icon: Surprise Me (Random Window Launcher) -->
+    <div class="desktop-icon" style="top: 230px; right: 30px;" onclick="rollAndOpenRandomWindow(this)" title="Open a Random Feature">
+      <div class="mac-app-icon random-app-icon">
+        <span class="dice-emoji">🎲</span>
+      </div>
+      <span>Surprise Me</span>
+    </div>
         <!-- Desktop Icon: Fullstack Nexus -->
     <div class="desktop-icon" style="top: 330px; right: 30px;" onclick="openDesktopShortcut('https://vijeshg.github.io/fullstack-nexus/', '_blank')">
         <div class="mac-app-icon nexus-icon">
@@ -728,6 +735,10 @@
       </div>
     </div>
   </div>
+</div>
+<!-- On-Screen Rolling Dice Overlay -->
+<div id="dice-overlay" class="dice-overlay hidden">
+  <div id="screen-dice" class="large-screen-dice">🎲</div>
 </div>
   <script src="script.js"></script>
   

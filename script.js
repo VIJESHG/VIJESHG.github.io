@@ -635,3 +635,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// --- macOS Rolling Dice Random Launcher ---
+
+// --- macOS On-Screen Rolling Dice Launcher ---
+
+let isRolling = false;
+
+function rollAndOpenRandomWindow(iconElement) {
+  if (isRolling) return;
+  isRolling = true;
+
+  const overlay = document.getElementById('dice-overlay');
+  const appIcon = iconElement ? iconElement.querySelector('.random-app-icon') : null;
+
+  // 1. Animate small app icon
+  if (appIcon) appIcon.classList.add('rolling');
+
+  // 2. Trigger full-screen dice overlay
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    // Force reflow for CSS transition
+    void overlay.offsetWidth;
+    overlay.classList.add('visible');
+  }
+
+  // 3. Wait for tumble animation (1.1s) before revealing random window
+  setTimeout(() => {
+    const availableWindows = [
+      'about-window',
+      'projects-window',
+      'contact-window',
+      'terminal-window',
+      'good-reads-window'
+    ];
+
+    const randomIndex = Math.floor(Math.random() * availableWindows.length);
+    const selectedWindow = availableWindows[randomIndex];
+
+    // Fade out overlay
+    if (overlay) {
+      overlay.classList.remove('visible');
+      setTimeout(() => overlay.classList.add('hidden'), 250);
+    }
+
+    // Open random window
+    if (typeof openWindow === 'function') {
+      openWindow(selectedWindow);
+    }
+
+    if (appIcon) appIcon.classList.remove('rolling');
+    isRolling = false;
+  }, 1100);
+}
