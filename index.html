@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vijesh Ghandare — Portfolio</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='url(%23grad)'/><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23007aff'/><stop offset='100%25' stop-color='%235856d6'/></linearGradient></defs><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='-apple-system, sans-serif' font-weight='900' font-size='48'>VG</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head> -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - macOS Desktop</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>Vijesh Ghandare — Staff Software Engineer</title>
+  <meta name="title" content="Vijesh Ghandare — Staff Software Engineer">
+  <meta name="description" content="Interactive macOS desktop portfolio showcasing end-to-end fullstack systems, agentic AI platforms, and developer tools.">
+  <meta name="author" content="Vijesh Ghandare">
+
+  <!-- SVG Favicon with VG Monogram & macOS Gradient -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='url(%23grad)'/><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23007aff'/><stop offset='100%25' stop-color='%235856d6'/></linearGradient></defs><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='-apple-system, sans-serif' font-weight='900' font-size='48'>VG</text></svg>">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vijeshg.github.io/">
+  <meta property="og:title" content="Vijesh Ghandare — Staff Software Engineer">
+  <meta property="og:description" content="Vijesh Ghandare — Staff Software Engineer. Engineering end-to-end fullstack platforms, LLM orchestration, and distributed software systems.">  <meta property="og:image" content="https://vijeshg.github.io/wallpaper.jpg">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://vijeshg.github.io/">
+  <meta name="twitter:title" content="Vijesh Ghandare — Staff Software Engineer">
+  <meta property="og:description" content="Vijesh Ghandare — Staff Software Engineer. Engineering end-to-end fullstack platforms, LLM orchestration, and distributed software systems.">
+  <meta name="twitter:image" content="https://vijeshg.github.io/wallpaper.jpg">
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -464,6 +495,28 @@
       </div>
     </div>
   </div>
+  <!-- Modern macOS Window: Terminal -->
+<div id="terminal-window" class="mac-window terminal-window hidden">
+  <div class="window-header terminal-header">
+    <div class="traffic-lights">
+      <span class="close" onclick="closeWindow('terminal-window')"></span>
+      <span class="minimize"></span>
+      <span class="maximize" onclick="toggleMaximize('terminal-window')"></span>
+    </div>
+    <span class="window-title">vijesh@macbook: ~ (zsh)</span>
+  </div>
+
+  <div class="window-body terminal-body" onclick="focusTerminalInput()">
+    <div id="terminal-output">
+      <p class="term-welcome">Last login: Tue Jul 21 on ttys000</p>
+      <p class="term-welcome">Type <span class="term-highlight">'help'</span> to see a list of available commands.</p>
+    </div>
+    <div class="terminal-line">
+      <span class="prompt">vijesh@macbook ~ %</span>
+      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+</div>
   </main>
 
   <!-- Floating Glass macOS Dock -->
@@ -501,6 +554,12 @@
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
         </svg>
         </div>
+    </div>
+        <!-- Terminal Dock Item -->
+    <div class="dock-item" title="Terminal" onclick="openWindow('terminal-window')">
+      <div class="dock-icon terminal-dock-icon">
+        <span style="font-size: 20px; font-family: monospace; font-weight: 800; color: #4ade80;">>_</span>
+      </div>
     </div>
       <div class="dock-divider"></div>
       <div class="dock-item" title="Trash">
