@@ -290,3 +290,123 @@ function playVideoDemo(videoRawUrl, title = 'Video Demo') {
       videoWin.classList.add('hidden');
     }
   }
+
+  // --- macOS Interactive Terminal Logic ---
+const terminalInput = document.getElementById('terminal-input');
+const terminalOutput = document.getElementById('terminal-output');
+
+if (terminalInput) {
+  terminalInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      const command = this.value.trim();
+      this.value = '';
+      executeTerminalCommand(command);
+    }
+  });
+}
+
+function focusTerminalInput() {
+  const input = document.getElementById('terminal-input');
+  if (input) input.focus();
+}
+
+function executeTerminalCommand(cmd) {
+  if (!terminalOutput) return;
+
+  // Render command line prompt entry
+  const commandLine = document.createElement('div');
+  commandLine.className = 'term-command-row';
+  commandLine.innerHTML = `<span class="prompt">vijesh@macbook ~ %</span> <span>${escapeHtml(cmd)}</span>`;
+  terminalOutput.appendChild(commandLine);
+
+  const lowerCmd = cmd.toLowerCase().trim();
+  let responseHTML = '';
+
+  switch (lowerCmd) {
+    case 'help':
+      responseHTML = `
+        <div class="term-output-text">
+          <span class="term-highlight">Available Commands:</span><br>
+          • <b class="term-success">about</b>    : Summary & technical background<br>
+          • <b class="term-success">skills</b>   : Languages, tools, & frameworks<br>
+          • <b class="term-success">projects</b> : High-level summary of engineering works<br>
+          • <b class="term-success">contact</b>  : Email and profile links<br>
+          • <b class="term-success">clear</b>    : Clear terminal screen<br>
+          • <b class="term-success">date</b>     : Print system date and time<br>
+          • <b class="term-success">whoami</b>   : Output current shell identity
+        </div>`;
+      break;
+
+    case 'about':
+    case 'whoami':
+      responseHTML = `
+        <div class="term-output-text">
+          <b>Vijesh Ghandare</b> — Staff Software Engineer<br>
+          Specializing in end-to-end fullstack development (React, Angular, Spring Boot, Node.js) and autonomous Agentic AI systems (LangGraph, MCP Protocol).
+        </div>`;
+      break;
+
+    case 'skills':
+      responseHTML = `
+        <div class="term-output-text">
+          <span class="term-highlight">Languages:</span> Java, Python, C/C++, JavaScript, SQL<br>
+          <span class="term-highlight">Fullstack:</span> ReactJS, Angular, Node.js, Spring Boot, Microservices<br>
+          <span class="term-highlight">Agentic AI:</span> LangGraph, MCP Protocol, GenAI, LLM Orchestration<br>
+          <span class="term-highlight">Cloud & DevOps:</span> Kubernetes, Docker, System Design
+        </div>`;
+      break;
+
+    case 'projects':
+      responseHTML = `
+        <div class="term-output-text">
+          1. <b class="term-success">Fullstack Nexus</b> — Interactive Fullstack System Design Platform<br>
+          2. <b class="term-success">SnapReadAI</b> — Chrome Extension for Gemini LLM Summarization<br>
+          3. <b class="term-success">K8s Troubleshooting Agent</b> — LangGraph + MCP Autonomous DevOps Agent<br>
+          4. <b class="term-success">PracticalJava</b> — Core Java Architecture & Concurrency Practices<br>
+          5. <b class="term-success">MyCalci</b> — Arbitrary-precision BigInt Linux CLI Calculator
+        </div>`;
+      break;
+
+    case 'contact':
+      responseHTML = `
+        <div class="term-output-text">
+          • <b>Email:</b> mail.vijeshg@gmail.com<br>
+          • <b>GitHub:</b> https://github.com/vijeshg<br>
+          • <b>LinkedIn:</b> https://www.linkedin.com/in/vijeshg/
+        </div>`;
+      break;
+
+    case 'date':
+      responseHTML = `<div class="term-output-text">${new Date().toString()}</div>`;
+      break;
+
+    case 'clear':
+      terminalOutput.innerHTML = '';
+      return;
+
+    case 'sudo':
+    case 'sudo su':
+      responseHTML = `<div class="term-output-text term-error">Permission denied: 'vijesh' holds all root access! 🛡️</div>`;
+      break;
+
+    case '':
+      return;
+
+    default:
+      responseHTML = `<div class="term-output-text term-error">zsh: command not found: ${escapeHtml(cmd)}. Type <span class="term-highlight">'help'</span> for a list of commands.</div>`;
+  }
+
+  const responseContainer = document.createElement('div');
+  responseContainer.innerHTML = responseHTML;
+  terminalOutput.appendChild(responseContainer);
+
+  // Auto-scroll to bottom
+  const termBody = document.querySelector('.terminal-body');
+  if (termBody) {
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
